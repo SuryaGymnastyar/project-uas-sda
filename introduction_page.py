@@ -40,6 +40,10 @@ class Introduction:
         self.next = tk.Button(self.frame_perkenalan, text="Next", font=("pixelify sans", 20), command=self.to_menu)
         self.next.place(x=980, y=580)
         
+        #Matahari senja
+        self.sun = tk.Label(self.frame_perkenalan, bg="#ffe11b")
+        self.sun.place(x=55, y=254, width=91, height=70)
+        
     def to_menu(self):
         self.frame_perkenalan.place_forget
         menu = Menu(self.window)
