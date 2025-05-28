@@ -1,11 +1,9 @@
-from menu_page import Menu
 import tkinter as tk
 from tkinter import ttk, messagebox
 
 class Introduction:
     def __init__(self, window):
-        self.window = window
-        self.frame_perkenalan = tk.Frame(self.window, width=1100, height=650)
+        self.frame_perkenalan = tk.Frame(window, width=1100, height=650)
         self.frame_perkenalan.place(x=0, y=0)
         
         self.backgroundd = tk.PhotoImage(file="bg/backgroundd.png")
@@ -63,7 +61,7 @@ class Introduction:
         self.next.place(x=877, y=580, width=193, height=50)
 
         #Prev
-        self.prev = tk.Button(self.frame_perkenalan, text="Prev", font=("pixelify sans", 20), bg="#6f6f6f", fg="white", command=self.to_menu)
+        self.prev = tk.Button(self.frame_perkenalan, text="Prev", font=("pixelify sans", 20), bg="#6f6f6f", fg="white", command=self.to_welcome)
         self.prev.place(x=30, y=580, width=193, height=50)        
         
         #Foto
