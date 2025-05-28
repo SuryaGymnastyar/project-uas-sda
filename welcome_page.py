@@ -1,26 +1,11 @@
-from introduction_page import Introduction
 import tkinter as tk
 from tkinter import ttk, messagebox
 
 class Welcome:
-    def __init__(self):
-        self.window = tk.Tk()
-        self.window.title("Aplikasi Skor")
-        
-        window_width = 1100
-        window_height = 650
-        screen_width = self.window.winfo_screenwidth()
-        screen_height = self.window.winfo_screenheight()
-        
-        x = (screen_width // 2) - (window_width // 2)
-        y = (screen_height // 2) - (window_height // 2)
-        
-        self.window.geometry(f"{window_width}x{window_height}+{x}+{y}")
-        self.window.resizable(False, False)
-        
+    def __init__(self, window):
         #Frame Welcome
-        self.frame_welcome = tk.Frame(self.window, width=1100, height=650)
-        self.frame_welcome.pack(fill="both", expand=True)
+        self.frame_welcome = tk.Frame(window, width=1100, height=650)
+        self.frame_welcome.place(x=0, y=0)
         
         #background
         self.background = tk.PhotoImage(file="bg/background.png")
@@ -102,13 +87,3 @@ class Welcome:
         self.clouddd1 = tk.Label(self.frame_welcome, bg="#d9d9d9")
         self.clouddd1.place(x=950, y=355, width=197, height=44.22)
         
-    def to_introduction(self):
-        self.frame_welcome.place_forget
-        perkenalan = Introduction(self.window)
-        
-    def mainloop(self):
-        self.window.mainloop()
-
-if __name__ == "__main__":
-    app = Welcome()
-    app.mainloop()

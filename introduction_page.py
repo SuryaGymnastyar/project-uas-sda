@@ -1,10 +1,8 @@
-from menu_page import Menu
 import tkinter as tk
 from tkinter import ttk, messagebox
 
 class Introduction:
     def __init__(self, window):
-        self.window = window
         self.frame_perkenalan = tk.Frame(window, width=1100, height=650)
         self.frame_perkenalan.place(x=0, y=0)
         
@@ -37,13 +35,12 @@ class Introduction:
         self.Foto4.image = self.foto4
         self.Foto4.place(x=800, y=300)
         
+        self.back = tk.Button(self.frame_perkenalan, text="Back", font=("pixelify sans", 20), command=self.to_welcome)
+        self.back.place(x=50, y=50)
+        
         self.next = tk.Button(self.frame_perkenalan, text="Next", font=("pixelify sans", 20), command=self.to_menu)
         self.next.place(x=980, y=580)
         
         #Matahari senja
         self.sun = tk.Label(self.frame_perkenalan, bg="#ffe11b")
-        self.sun.place(x=55, y=254, width=91, height=70)
-        
-    def to_menu(self):
-        self.frame_perkenalan.place_forget
-        menu = Menu(self.window)
+        self.sun.place(x=55, y=254, width=91, height=70)        
