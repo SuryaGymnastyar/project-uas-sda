@@ -7,6 +7,7 @@ import tkinter as tk
 
 class Main(Project, Welcome, Introduction, Menu):
     def __init__(self):
+        # Konfigurasi Awal Window
         self.window = tk.Tk()
         self.window.title("Aplikasi Skor")
         
