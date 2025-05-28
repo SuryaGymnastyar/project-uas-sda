@@ -103,7 +103,7 @@ class Welcome:
         self.clouddd1.place(x=950, y=355, width=197, height=44.22)
         
     def to_introduction(self):
-        self.frame_welcome.place_forget
+        self.frame_welcome.place_forget()
         perkenalan = Introduction(self.window)
         
     def mainloop(self):
