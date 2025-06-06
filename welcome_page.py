@@ -25,10 +25,10 @@ class Welcome:
         self.button_start = tk.Button(self.frame_welcome, text="Start", font=("pixelify sans", 20),bg="#6f6f6f", fg="white", command=self.to_introduction)
         self.button_start.place(x=325, y=280, width=450, height=50)
         
-        self.button_about = tk.Button(self.frame_welcome, text="About", font=("pixelify sans", 20), bg="#6f6f6f", fg="white")
+        self.button_about = tk.Button(self.frame_welcome, text="About", font=("pixelify sans", 20), bg="#6f6f6f", fg="white", command=self.about)
         self.button_about.place(x=325, y=375, width=450, height=50)
         
-        self.button_about = tk.Button(self.frame_welcome, text="Exit", font=("pixelify sans", 20), bg="#6f6f6f", fg="white")
+        self.button_about = tk.Button(self.frame_welcome, text="Exit", font=("pixelify sans", 20), bg="#6f6f6f", fg="white", command=self.exit)
         self.button_about.place(x=325, y=470, width=450, height=50)
         
         #Tanah bro
@@ -86,3 +86,6 @@ class Welcome:
                            
         self.clouddd1 = tk.Label(self.frame_welcome, bg="#d9d9d9")
         self.clouddd1.place(x=950, y=355, width=197, height=44.22)
+    
+    def exit(self):
+        self.window.destroy()
