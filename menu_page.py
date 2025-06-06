@@ -8,7 +8,7 @@ class Menu:
         self.frame_menu.place(x=0, y=0)
 
         #Prev
-        self.prev = tk.Button(self.frame_menu, text="Prev", font=("pixelify sans", 20), bg="#6f6f6f", fg="white", command=self.to_menu)
+        self.prev = tk.Button(self.frame_menu, text="Prev", font=("pixelify sans", 20), bg="#6f6f6f", fg="white", command=self.back_to_introduction)
         self.prev.place(x=30, y=580, width=193, height=50)      
         
         #frame header
@@ -27,9 +27,16 @@ class Menu:
         self.project = tk.Label(self.frame_menu)
         self.project.place(x=35, y=290, relwidth=.9)
         
+        self.project1 = tk.PhotoImage(file="image/Project4.png")
+        self.project2 = tk.PhotoImage(file="image/Project4.png")
+        self.project3 = tk.PhotoImage(file="image/Project4.png")
+        self.project4 = tk.PhotoImage(file="image/Project4.png")
+        
+        self.project_image = [self.project1, self.project2, self.project3, self.project4]
+        
         for i in range(4):
-            self.box = tk.Frame(self.project, bd=2, relief="solid", width="200", height="200", background="#f6f6f6")
-            self.box.grid(column=i, row=0, padx=25)
+            self.image = tk.Button(self.project, image=self.project_image[i], borderwidth=0, highlightthickness=0, command=self.to_project)
+            self.image.grid(column=i, row=0, padx=25)
             
             self.judul = tk.Label(self.project, text=f"Project {i + 1}", fg="#000000", font=("04b", 15))
             self.judul.grid(column=i, row=1, pady=10)

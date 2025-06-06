@@ -61,7 +61,7 @@ class Introduction:
         self.next.place(x=877, y=580, width=193, height=50)
 
         #Prev
-        self.prev = tk.Button(self.frame_perkenalan, text="Prev", font=("pixelify sans", 20), bg="#6f6f6f", fg="white", command=self.to_welcome)
+        self.prev = tk.Button(self.frame_perkenalan, text="Prev", font=("pixelify sans", 20), bg="#6f6f6f", fg="white", command=self.back_to_welcome)
         self.prev.place(x=30, y=580, width=193, height=50)        
         
         #Foto
