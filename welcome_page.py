@@ -53,11 +53,8 @@ class Welcome:
         self.grass.place(x=0, y=580, width=1100, height=20)
         
         #Awan bwangg
-        
         self.sun = tk.Label(self.frame_welcome, bg="#ffe11b")
         self.sun.place(x=55, y=227, width=91, height=70)
-        
-        
         
         Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=50, vertical=310, width=216, height=26)
         Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=88, vertical=274, width=149, height=38)
@@ -80,11 +77,9 @@ class Welcome:
         #Awan 3 bang
         Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=1000, vertical=320, width=123.12, height=38.7)
         Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=950, vertical=355, width=197, height=44.22)
-        self.clouddd = tk.Label(self.frame_welcome, bg="#d9d9d9")
-        self.clouddd.place(x=1000, y=320, width=123.12, height=38.7)
-                           
-        self.clouddd1 = tk.Label(self.frame_welcome, bg="#d9d9d9")
-        self.clouddd1.place(x=950, y=355, width=197, height=44.22)
+        
+    def about(self):
+        pass
     
     def exit(self):
         self.window.destroy()
