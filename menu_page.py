@@ -20,13 +20,16 @@ class Menu:
         self.header = tk.Label(self.frame_menu, image=self.bgrr, borderwidth=0, highlightthickness=0)
         self.header.place(relwidth=.9, y=50, x=60)
         
-        self.profile = tk.Frame(self.header, bd=2, width="150", height="150", relief="solid")
+        self.logo = tk.PhotoImage(file="image/logo.png")
+        self.profile = tk.Label(self.header, image=self.logo, bd=2, width="150", height="150", relief="solid")
         self.profile.pack(side="left")
-        
-        self.h1 = tk.Label(self.header, border=0, text="BLOCKBUSTER UwU", font=("04b", 30), fg="#000", highlightthickness=0)
+
+        self.bkr = tk.PhotoImage(file="bg/bg_head1.png") 
+        self.h1 = tk.Label(self.header, border=0, image=self.bkr, compound="center", borderwidth=0, highlightthickness=0, text="BLOCKBUSTER UwU", font=("04b", 30), fg="#000")
         self.h1.pack(side="left", padx=20)
         
-        self.h2 = tk.Label(self.frame_menu, text="Our Project:", font=("04b", 20), fg="#000", highlightthickness=0)
+        self.bkrr = tk.PhotoImage(file="bg/bg_head2.png")
+        self.h2 = tk.Label(self.frame_menu, image=self.bkrr, compound="center", borderwidth=0, highlightthickness=0, text="Our Project:", font=("04b", 20), fg="#000")
         self.h2.place(x=55, y=240)
 
         self.bgr = tk.PhotoImage(file="bg/bg_project.png")
@@ -39,15 +42,16 @@ class Menu:
         self.project4 = tk.PhotoImage(file="image/MiniProject.png")
         
         self.project_image = [self.project1, self.project2, self.project3, self.project4]
+
+        self.bgrrr = tk.PhotoImage(file="bg/bg_judul.png")
         
         for i in range(4):
             self.image = tk.Button(self.project, image=self.project_image[i], borderwidth=0, highlightthickness=0, command=self.to_project)
             self.image.grid(column=i, row=0, padx=25)
             
-            self.judul = tk.Label(self.project, text=f"Project {i + 1}", fg="#000000", font=("04b", 15))
+            self.judul = tk.Label(self.project, image=self.bgrrr, borderwidth=0, highlightthickness=0, text=f"Project {i + 1}", fg="#000000", font=("04b", 15), compound="center")
             self.judul.grid(column=i, row=1, pady=10)
         
-            
         # KOMPONEN
         self.elm = tk.Frame(self.frame_menu, width=10, height=10, bg="#FCF998")
         self.elm.place(x=15, y=120)

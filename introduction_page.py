@@ -89,7 +89,8 @@ class Introduction:
         self.Foto4.image = self.foto4
         self.Foto4.place(x=785, y=275)
 
-        self.bok = tk.Label(self.frame_perkenalan, borderwidth=0, highlightthickness=0)
+        self.bnd = tk.PhotoImage(file="bg/bg_bok.png")
+        self.bok = tk.Label(self.frame_perkenalan,image=self.bnd, borderwidth=0, highlightthickness=0)
         self.bok.place(x=100, y=480, width=950, height=30)
 
         self.namakt = ["Kyzo", "Araa", "Flyy", "Kalv"]
