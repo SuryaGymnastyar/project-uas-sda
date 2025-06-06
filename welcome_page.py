@@ -85,4 +85,3 @@ class Welcome:
                            
         self.clouddd1 = tk.Label(self.frame_welcome, bg="#d9d9d9")
         self.clouddd1.place(x=950, y=355, width=197, height=44.22)
-        
