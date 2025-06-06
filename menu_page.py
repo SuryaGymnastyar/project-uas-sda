@@ -7,30 +7,36 @@ class Menu:
         self.frame_menu = tk.Frame(window, width=1100, height=650)
         self.frame_menu.place(x=0, y=0)
 
+        self.backgrounddd = tk.PhotoImage(file="bg/bg_menu.png")
+        self.label = tk.Label(self.frame_menu, image=self.backgrounddd, borderwidth=0, highlightthickness=0)
+        self.label.place(x=0, y=0, width=self.backgrounddd.width(), height=self.backgrounddd.height())
+
         #Prev
         self.prev = tk.Button(self.frame_menu, text="Prev", font=("pixelify sans", 20), bg="#6f6f6f", fg="white", command=self.back_to_introduction)
         self.prev.place(x=30, y=580, width=193, height=50)      
         
         #frame header
-        self.header = tk.Label(self.frame_menu, border=0)
+        self.bgrr = tk.PhotoImage(file="bg/bg_header.png")
+        self.header = tk.Label(self.frame_menu, image=self.bgrr, borderwidth=0, highlightthickness=0)
         self.header.place(relwidth=.9, y=50, x=60)
         
         self.profile = tk.Frame(self.header, bd=2, width="150", height="150", relief="solid")
         self.profile.pack(side="left")
         
-        self.h1 = tk.Label(self.header, border=0, text="Rafsanss", font=("04b", 40), fg="#000", highlightthickness=0)
+        self.h1 = tk.Label(self.header, border=0, text="BLOCKBUSTER UwU", font=("04b", 30), fg="#000", highlightthickness=0)
         self.h1.pack(side="left", padx=20)
         
         self.h2 = tk.Label(self.frame_menu, text="Our Project:", font=("04b", 20), fg="#000", highlightthickness=0)
         self.h2.place(x=55, y=240)
-        
-        self.project = tk.Label(self.frame_menu)
+
+        self.bgr = tk.PhotoImage(file="bg/bg_project.png")
+        self.project = tk.Label(self.frame_menu, image=self.bgr, borderwidth=0, highlightthickness=0)
         self.project.place(x=35, y=290, relwidth=.9)
         
-        self.project1 = tk.PhotoImage(file="image/Project4.png")
-        self.project2 = tk.PhotoImage(file="image/Project4.png")
-        self.project3 = tk.PhotoImage(file="image/Project4.png")
-        self.project4 = tk.PhotoImage(file="image/Project4.png")
+        self.project1 = tk.PhotoImage(file="image/alien.png")
+        self.project2 = tk.PhotoImage(file="image/ff.png")
+        self.project3 = tk.PhotoImage(file="image/kalkulator.png")
+        self.project4 = tk.PhotoImage(file="image/MiniProject.png")
         
         self.project_image = [self.project1, self.project2, self.project3, self.project4]
         
@@ -40,6 +46,7 @@ class Menu:
             
             self.judul = tk.Label(self.project, text=f"Project {i + 1}", fg="#000000", font=("04b", 15))
             self.judul.grid(column=i, row=1, pady=10)
+        
             
         # KOMPONEN
         self.elm = tk.Frame(self.frame_menu, width=10, height=10, bg="#FCF998")

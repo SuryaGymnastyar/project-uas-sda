@@ -67,24 +67,45 @@ class Introduction:
         #Foto
         self.foto1 = tk.PhotoImage(file="foto/Abdul.png")
         self.foto1 = self.foto1.subsample(4, 4)
-        self.Foto1 = tk.Label(self.frame_perkenalan, image=self.foto1)
+        self.Foto1 = tk.Button(self.frame_perkenalan, image=self.foto1, borderwidth=0, highlightthickness=0, command=self.info_abdul)
         self.Foto1.image = self.foto1
         self.Foto1.place(x=110, y=275)
         
         self.foto2 = tk.PhotoImage(file="foto/Araa.png")
         self.foto2 = self.foto2.subsample(4, 4)
-        self.Foto2 = tk.Label(self.frame_perkenalan, image=self.foto2)
+        self.Foto2 = tk.Button(self.frame_perkenalan, image=self.foto2, borderwidth=0, highlightthickness=0, command=self.info_araa)
         self.Foto2.image = self.foto2
         self.Foto2.place(x=335, y=275)
 
         self.foto3 = tk.PhotoImage(file="foto/Rafly.png")
         self.foto3 = self.foto3.subsample(4, 4)
-        self.Foto3 = tk.Label(self.frame_perkenalan, image=self.foto3)
+        self.Foto3 = tk.Button(self.frame_perkenalan, image=self.foto3, borderwidth=0, highlightthickness=0, command=self.info_rafly)
         self.Foto3.image = self.foto3
         self.Foto3.place(x=560, y=275)
         
         self.foto4 = tk.PhotoImage(file="foto/Surya.png")
         self.foto4 = self.foto4.subsample(4, 4)
-        self.Foto4 = tk.Label(self.frame_perkenalan, image=self.foto4)
+        self.Foto4 = tk.Button(self.frame_perkenalan, image=self.foto4, borderwidth=0, highlightthickness=0, command=self.info_surya)
         self.Foto4.image = self.foto4
         self.Foto4.place(x=785, y=275)
+
+        self.bok = tk.Label(self.frame_perkenalan, borderwidth=0, highlightthickness=0)
+        self.bok.place(x=100, y=480, width=950, height=30)
+
+        self.namakt = ["Kyzo", "Araa", "Flyy", "Kalv"]
+
+        for i in range(4):
+            self.namakm = tk.Label(self.bok, text=self.namakt[i], fg="#000000", font=("04b", 15))
+            self.namakm.grid(column=i, row=1, padx=77, pady=5)
+
+    def info_abdul(self):
+        messagebox.showinfo("BIODATA ANGGOTA 1", "Nama : Abdul Ghodir Firdiansyah\nNPM   : 2417051054\nKelas  : ILKOM B\nKata Motivasi : Jangan lupa sda")
+
+    def info_araa(self):
+        messagebox.showinfo("BIODATA ANGGOTA 2", "Nama : Annisa Azzahra\nNPM   : 2417051059\nKelas  : ILKOM B\nKata Motivasi : Jangan lupa design")
+
+    def info_rafly(self):
+        messagebox.showinfo("BIODATA KETUA PROJECT", "Nama : M. Rafly Saputra\nNPM   : 2417051049\nKelas  : ILKOM B\nKata Motivasi : Jangan lupa petruk")
+
+    def info_surya(self):
+        messagebox.showinfo("BIODATA ANGGOTA 3", "Nama : M. Surya Gymnastyar\nNPM   : 2417051011\nKelas  : ILKOM B\nKata Motivasi : Jangan lupa so")

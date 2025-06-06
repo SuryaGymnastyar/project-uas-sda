@@ -65,7 +65,7 @@ class Project:
         self.tombol2.place(x=124, y=210, width=30, height=30)
         
         #Pilihan Kanan
-        self.pilr = ["Abdul", "Rara", "Surya", "Rafly"]
+        self.pilr = ["Abdul", "Rara", "Rafly", "Surya"]
         self.pilihanr = tk.StringVar()
         self.pilihanr.set("Pilihan")
 
