@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from component.awan import Awan
+from component.burung import Burung
 
 class Welcome:
     def __init__(self, window):
@@ -51,25 +53,20 @@ class Welcome:
         self.grass.place(x=0, y=580, width=1100, height=20)
         
         #Awan bwangg
+        
         self.sun = tk.Label(self.frame_welcome, bg="#ffe11b")
         self.sun.place(x=55, y=227, width=91, height=70)
         
-        self.cloud = tk.Label(self.frame_welcome, bg="#d9d9d9")
-        self.cloud.place(x=50, y=310, width=216, height=26)
         
-        self.cloud1 = tk.Label(self.frame_welcome, bg="#d9d9d9")
-        self.cloud1.place(x=88, y=274, width=149, height=38)
         
-        self.cloud2 = tk.Label(self.frame_welcome, bg="#d9d9d9")
-        self.cloud2.place(x=115, y=250, width=91, height=25)
+        Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=50, vertical=310, width=216, height=26)
+        Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=88, vertical=274, width=149, height=38)
+        Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=115, vertical=250, width=91, height=25)
         
         #Awan 2 bang
-        self.cloudd = tk.Label(self.frame_welcome, bg="#d9d9d9")
-        self.cloudd.place(x=860, y=198, width=197, height=44.22)
-        
-        self.cloudd1 = tk.Label(self.frame_welcome, bg="#d9d9d9")
-        self.cloudd1.place(x=905, y=170, width=123, height=28)
-        
+        Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=860, vertical=198, width=197, height=44.22)
+        Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=905, vertical=170, width=123, height=28)
+
         #burung
         self.bird = tk.Label(self.frame_welcome, bg="black")
         self.bird.place(x=1003, y=195, width=54, height=13)
@@ -81,6 +78,8 @@ class Welcome:
         self.bird2.place(x=1050, y=203, width=38, height=16)
         
         #Awan 3 bang
+        Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=1000, vertical=320, width=123.12, height=38.7)
+        Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=950, vertical=355, width=197, height=44.22)
         self.clouddd = tk.Label(self.frame_welcome, bg="#d9d9d9")
         self.clouddd.place(x=1000, y=320, width=123.12, height=38.7)
                            
