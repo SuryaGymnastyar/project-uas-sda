@@ -78,8 +78,93 @@ class Welcome:
         Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=1000, vertical=320, width=123.12, height=38.7)
         Awan(tk=tk, frame=self.frame_welcome, bgcolor="#d9d9d9", horizontal=950, vertical=355, width=197, height=44.22)
         
+    
+        #Easter Egg
+        self.tes = tk.Button(self.frame_welcome, text="", bg="#d9d9d9", command=self.easter_egg, borderwidth=0, highlightthickness=0)
+        self.tes.place(x=115, y=250, width=91, height=25)
+        
+    def easter_egg(self):
+        pop_up = tk.Toplevel(bg="blue")
+        pop_up.resizable(False, False)
+        window_width = 550
+        window_height = 325
+        
+        screen_width = pop_up.winfo_screenwidth()
+        screen_height = pop_up.winfo_screenheight()
+        x = (screen_width // 2) - (window_width // 2)
+        y = (screen_height // 2) - (window_height // 2)
+        pop_up.geometry(f"{window_width}x{window_height}+{x}+{y}")
+        
+        list_code = {
+            "Bunga" : "Kucing Myauuu",
+            "Buah" : 0
+        }
+        
+        code = tk.Entry(pop_up)
+        code.pack(pady=50)
+        
+        meme1 = tk.PhotoImage(file="image/meme1.png")
+        meme1_label = tk.Label(pop_up, image=meme1, borderwidth=0, highlightthickness=0)
+        meme1_label.image = meme1
+        
+        teks = tk.Label(pop_up, text="", bg="blue")
+        teks.pack()
+        
+        def redeem_code():
+            code_redeem = code.get()
+            
+            try:
+                if list_code[code_redeem] == "Kucing Myauuu":
+                    meme1_label.place(x=0, y=0, width=meme1.width(), height=meme1.height())
+                    teks.config(text=list_code[code_redeem])
+            except KeyError:
+                teks.config(text="KODE REDEEM TIDAK VALID")
+                    
+            redeem.pack_forget()
+            code.pack_forget()
+        
+        redeem = tk.Button(pop_up, text="Redeem", command=redeem_code)
+        redeem.pack()
+        
     def about(self):
-        pass
+        self.frame_welcome.place_forget()
+        
+        #Frame About
+        self.frame_about = tk.Frame(self.window, width=1100, height=650)
+        self.frame_about.place(x=0, y=0)
+        
+        #background about
+        self.bg_about = tk.PhotoImage(file="bg/bg_about.png")
+        self.about_label = tk.Label(self.frame_about, image=self.bg_about, borderwidth=0, highlightthickness=0)
+        self.about_label.place(x=0, y=0, width=self.bg_about.width(), height=self.bg_about.height())
+        
+        self.bubble1 = tk.PhotoImage(file="image/bubble1.png")
+        self.bubble1_label = tk.Label(self.frame_about, image=self.bubble1, borderwidth=0, highlightthickness=0)
+        self.bubble1_label.image = self.bubble1
+        self.bubble1_label.place(x=250, y=125, width=self.bubble1.width(), height=self.bubble1.height())
+        
+        self.bubble1 = tk.PhotoImage(file="image/pillagy.png")
+        self.bubble1_label = tk.Label(self.frame_about, image=self.bubble1, borderwidth=0, highlightthickness=0)
+        self.bubble1_label.place(x=285, y=429, width=self.bubble1.width(), height=self.bubble1.height())
+        
+        about_text = ["MAU TAU BERBAGAI GAME SERU\nDALAM PROGRAM INI?", "Hmmmmmm??", "MULAI DARI UAP INVADER, GAME PESAWAT YANG\nMENANTANG UNTUK MENEMBAK MUSUH-MUSUHNYA,\nFEEDING FRENZY, PERMAINAN SERU TENTANG\nIKAN YANG SALING MEMANGSA,", "Hmmmmmm Hmmm Hmmmm", "RASAKAN PENGALAMAN BERMAIN YANG\nMENYENANGKAN DAN MENANTANG\nDISETIAP GAMENYA,CUMA DI PROJEK\nBLOCKBUSTER UwU AJA LOCHH", "Hmmmmmmm Hmmmmmm!!!"]
+        
+        self.text1 = tk.Label(self.frame_about, text=about_text.pop(0), font=("pixelify sans", 20), bg="#fefefe", anchor="center")
+        self.text1.place(x=325, y=255, width=460, height=105)
+        
+        def next():
+            if len(about_text) != 0:
+                self.text1.config(text=about_text.pop(0), font=("pixelify sans", 15))
+                
+                if len(about_text) == 0:
+                    self.next.config(text="> Exit <", command=back)
+        
+        def back():
+            self.frame_about.place_forget()
+            Welcome.__init__(self, self.window)
+        
+        self.next = tk.Button(text="Next >>", command=next, bg="#fefefe", borderwidth=0, highlightthickness=0, font=("pixelify sans", 12))
+        self.next.place(x=730, y=325, width=60, height=35)
     
     def exit(self):
         self.window.destroy()
