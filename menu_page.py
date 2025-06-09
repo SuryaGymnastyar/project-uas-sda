@@ -17,20 +17,64 @@ class Menu:
         
         #frame header
         self.bgrr = tk.PhotoImage(file="bg/bg_header.png")
-        self.header = tk.Label(self.frame_menu, image=self.bgrr, borderwidth=0, highlightthickness=0)
+        self.header = tk.Label(self.frame_menu, image=self.bgrr, borderwidth=0, highlightthickness=0, relief="flat", bd=0)
         self.header.place(relwidth=.9, y=50, x=60)
         
         self.logo = tk.PhotoImage(file="image/logo.png")
-        self.profile = tk.Label(self.header, image=self.logo, bd=2, width="150", height="150", relief="solid")
+        self.profile = tk.Label(self.header, image=self.logo, bd=0, width="150", height="150", relief="flat", highlightthickness=0, borderwidth=0)
         self.profile.pack(side="left")
 
         self.bkr = tk.PhotoImage(file="bg/bg_head1.png") 
-        self.h1 = tk.Label(self.header, border=0, image=self.bkr, compound="center", borderwidth=0, highlightthickness=0, text="BLOCKBUSTER UwU", font=("04b", 30), fg="#000")
-        self.h1.pack(side="left", padx=20)
+        self.h1_canvas = tk.Canvas(
+            self.header, 
+            width=self.bkr.width(), 
+            height=self.bkr.height(),
+            highlightthickness=0,
+            borderwidth=0
+        )
+        self.h1_canvas.pack(side="left", padx=20)
+        
+        # Tambahkan gambar background
+        self.h1_canvas.create_image(
+            self.bkr.width()//2, 
+            self.bkr.height()//2, 
+            image=self.bkr
+        )
+        
+        # Tambahkan teks di atas gambar
+        self.h1_canvas.create_text(
+            self.bkr.width()//2, 
+            self.bkr.height()//2, 
+            text="BLOCKBUSTER UwU", 
+            fill="#FFFFFF", 
+            font=("04b", 30)
+        )
         
         self.bkrr = tk.PhotoImage(file="bg/bg_head2.png")
-        self.h2 = tk.Label(self.frame_menu, image=self.bkrr, compound="center", borderwidth=0, highlightthickness=0, text="Our Project:", font=("04b", 20), fg="#000")
-        self.h2.place(x=55, y=240)
+        self.h2_canvas = tk.Canvas(
+            self.frame_menu, 
+            width=self.bkrr.width(), 
+            height=self.bkrr.height(),
+            highlightthickness=0,
+            borderwidth=0
+        )
+        self.h2_canvas.place(x=55, y=240)
+        
+        # Tambahkan gambar background
+        self.h2_canvas.create_image(
+            self.bkrr.width()//2, 
+            self.bkrr.height()//2, 
+            image=self.bkrr
+        )
+        
+        # Tambahkan teks di atas gambar
+        self.h2_canvas.create_text(
+            self.bkrr.width()//2, 
+            self.bkrr.height()//2, 
+            text="Our Project:", 
+            fill="#FFFFFF", 
+            font=("04b", 20)
+        )
 
         self.bgr = tk.PhotoImage(file="bg/bg_project.png")
         self.project = tk.Label(self.frame_menu, image=self.bgr, borderwidth=0, highlightthickness=0)
@@ -48,9 +92,34 @@ class Menu:
         for i in range(4):
             self.image = tk.Button(self.project, image=self.project_image[i], borderwidth=0, highlightthickness=0, command=self.to_project)
             self.image.grid(column=i, row=0, padx=25)
+
+            self.judul_canvas = tk.Canvas(
+                self.project, 
+                width=self.bgrrr.width(), 
+                height=self.bgrrr.height(),
+                highlightthickness=0,
+                borderwidth=0
+            )
+            self.judul_canvas.grid(column=i, row=1, pady=10)
             
-            self.judul = tk.Label(self.project, image=self.bgrrr, borderwidth=0, highlightthickness=0, text=f"Project {i + 1}", fg="#000000", font=("04b", 15), compound="center")
-            self.judul.grid(column=i, row=1, pady=10)
+            # Tambahkan gambar background
+            self.judul_canvas.create_image(
+                self.bgrrr.width()//2, 
+                self.bgrrr.height()//2, 
+                image=self.bgrrr
+            )
+            
+            # Tambahkan teks di atas gambar
+            self.judul_canvas.create_text(
+                self.bgrrr.width()//2, 
+                self.bgrrr.height()//2, 
+                text=f"Project {i + 1}", 
+                fill="#FFFFFF", 
+                font=("04b", 15)
+            )
+            
+            # self.judul = tk.Label(self.project, image=self.bgrrr, borderwidth=0, highlightthickness=0, text=f"Project {i + 1}", fg="#000000", font=("04b", 15), compound="center", bg=self.header["bg"])
+            # self.judul.grid(column=i, row=1, pady=10)
         
         # KOMPONEN
         self.elm = tk.Frame(self.frame_menu, width=10, height=10, bg="#FCF998")
