@@ -81,6 +81,12 @@ class Project:
         self.Gambarr.image = self.gambarr
         self.Gambarr.place(x=250, y=80)
         
+        self.next_round = tk.Button(self.frame_project_right, text="Next\nRound", bg="darkred", fg="white",  font=("Comic Sans MS", 12, "bold"), command=self.Next_Round)
+        self.next_round.place(x=440, y=400, width=80, height=50)
+        
+        self.round = tk.Label(self.frame_project_left, text="Round 1", bg="darkblue", fg="white",  font=("Comic Sans MS", 12, "bold"))
+        self.round.place(x=25, y=5, width=80, height=40)
+        
         #================================================================================================================================================
         
         #Frame Atas
@@ -118,7 +124,7 @@ class Project:
         self.Ao_name = tk.Label(self.frame_project_up, text="Nullbyte", font=("comic sans ms", 25), bg="black", fg="red")
         self.Ao_name.place(x=750, y=0, width=200, height=50)
         
-        self.close = tk.Button(self.frame_project_up, text="close", font=("comic sans ms", 12, "italic", "bold"), fg="white", bg="red", anchor="center", command=self.back_to_menu)
+        self.close = tk.Button(self.frame_project_up, text="close", font=("comic sans ms", 12, "italic", "bold"), fg="white", bg="red", anchor="center", command=self.Close)
         self.close.place(x=1000, y=10, width=80, height=30)
         
         #================================================================================================================================================
@@ -278,9 +284,17 @@ class Project:
                 
             self.Timer1.config(text="0:00")
             self.Timer2.config(text="0:00")
-                
+        
             self.pilihanr.set("Pilihan")
             self.pilihanl.set("Pilihan")
+            
+    def Next_Round(self):
+        round = self.round.cget("text").split(" ")
+        round[1] = int(round[1]) + 1
+        round = round[0] + " " + str(round[1])
+        
+        self.round.config(text=round)
+        
     def done_fnct(self):
         # CSV
         pass
@@ -318,3 +332,10 @@ class Project:
                 self.start_stop.place_forget()
                 self.Timer1.place_forget()
                 self.Timer2.place_forget()
+                
+    def Close(self):
+        try:
+            if not self.started:
+                self.back_to_menu()
+        except AttributeError:
+            self.back_to_menu()
