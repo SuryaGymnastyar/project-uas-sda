@@ -27,25 +27,37 @@ class Main(Project, Welcome, Introduction, Menu):
     def Start(self):
         Welcome.__init__(self, self.window)
         
-    def to_menu(self):
-        self.frame_welcome.place_forget()
-        Menu.__init__(self, self.window)
-        
     def to_introduction(self):
         self.frame_welcome.place_forget()
         Introduction.__init__(self, self.window)
-        
-    def to_project(self):
-        self.frame_perkenalan.place_forget()
-        Project.__init__(self, self.window)
-        
-    def to_welcome(self):
+    
+    def back_to_welcome(self):
         self.frame_perkenalan.place_forget()
         Welcome.__init__(self, self.window)
         
+    def to_menu(self):
+        self.frame_perkenalan.place_forget()
+        Menu.__init__(self, self.window)
+    
+    def back_to_introduction(self):
+        self.frame_menu.place_forget()
+        Introduction.__init__(self, self.window)
+        
+    def to_project(self):
+        self.frame_menu.place_forget()
+        Project.__init__(self, self.window)
+        
+    def back_to_menu(self):
+        self.frame_project_left.place_forget()
+        self.frame_project_right.place_forget()
+        self.frame_project_up.place_forget()
+        self.frame_project_down.place_forget()
+        self.jugdes.place_forget()
+        self.n_jugdes.place_forget()
+        Menu.__init__(self, self.window)
+            
     def mainloop(self):
         self.window.mainloop()
-        
     
 if __name__ == "__main__":
     App = Main()
