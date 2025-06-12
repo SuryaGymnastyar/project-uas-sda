@@ -123,7 +123,6 @@ class Introduction:
 
     def urutkan_khusus(self):
         urutan_nama_asli = ["Abdul", "Araa", "Rafly", "Surya"]
-        urutan_alias = ["Kyzo", "Araa", "Flyy", "Kalv"]
 
         mapping_nama = {
             "Abdul": "Kyzo",

@@ -80,17 +80,18 @@ class Menu:
         self.project = tk.Label(self.frame_menu, image=self.bgr, borderwidth=0, highlightthickness=0)
         self.project.place(x=35, y=290, relwidth=.9)
         
-        self.project1 = tk.PhotoImage(file="image/alien.png")
-        self.project2 = tk.PhotoImage(file="image/ff.png")
-        self.project3 = tk.PhotoImage(file="image/kalkulator.png")
-        self.project4 = tk.PhotoImage(file="image/MiniProject.png")
         
-        self.project_image = [self.project1, self.project2, self.project3, self.project4]
+        
+        self.project_image = [
+            [tk.PhotoImage(file="image/alien.png"), lambda: self.information_project("Nama Project: Alien\nAuthor:Rafly, Tisya, Abdul\n\nPenjelasan:\nIni adalah project game pesawat untuk tembak tembak musuh aja sampe menang")], 
+            [tk.PhotoImage(file="image/ff.png"), lambda: self.information_project("Nama Project: Freeding Frenzy\nAuthor:Surya, Tiwi, Alyssa\n\nPenjelasan:\nIni adalah project game ikan tapi mirip ular ketika dia makan dia akan bertumbuh")], 
+            [tk.PhotoImage(file="image/kalkulator.png"), lambda: self.information_project("Nama Project: Kobiko\nAuthor:Rafly, Abdul, Tisya\n\nPenjelasan:\nIni adalah project konversi bilangan biner")], 
+            [tk.PhotoImage(file="image/MiniProject.png"), self.to_project]
+        ]
 
         self.bgrrr = tk.PhotoImage(file="bg/bg_judul.png")
-        
         for i in range(4):
-            self.image = tk.Button(self.project, image=self.project_image[i], borderwidth=0, highlightthickness=0, command=self.to_project)
+            self.image = tk.Button(self.project, image=self.project_image[i][0], borderwidth=0, highlightthickness=0, command=self.project_image[i][1])
             self.image.grid(column=i, row=0, padx=25)
 
             self.judul_canvas = tk.Canvas(
@@ -147,3 +148,6 @@ class Menu:
         Awan(tk=tk, frame=self.frame_menu, bgcolor="#d9d9d9", horizontal=970, vertical=155, width=110, height=30)
         Awan(tk=tk, frame=self.frame_menu, bgcolor="#d9d9d9", horizontal=950, vertical=180, width=147, height=38)
         Awan(tk=tk, frame=self.frame_menu, bgcolor="#d9d9d9", horizontal=910, vertical=210, width=300, height=25)
+        
+    def information_project(self, information):
+        messagebox.showinfo("INFORMATION", information)

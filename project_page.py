@@ -1,8 +1,24 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+import csv
 
 class Project:
     def __init__(self, window):
+        self.data_pemainL = {
+            "pemain": None,
+            "voting": 0,
+            "status": "Aman"
+        }
+        
+        self.data_pemainR = {
+            "pemain": None,
+            "voting": 0,
+            "status": "Aman"
+        }
+        
+        self.pemain_aktif = [False, False]
+        self.pemain_selesai = []
+        
         #Frame Kiri
         self.frame_project_left = tk.Frame(window, bg="blue", width=550, height=650)
         self.frame_project_left.place(x=0, y=50)
@@ -27,12 +43,12 @@ class Project:
         self.pilihanl = tk.StringVar()
         self.pilihanl.set("Pilihan")
 
-        self.opsi1 = tk.OptionMenu(self.frame_project_left, self.pilihanl, *self.pill)
+        self.opsi1 = tk.OptionMenu(self.frame_project_left, self.pilihanl, *self.pill, command=lambda value: self.simpan_pemain(value, "rafly"))
         self.opsi1.place(x=180, y=0)
         self.opsi1.config(bg="blue", fg="black", width=20, font=("Comic Sans MS", 10, "bold"))
         
         #Tombol Start/Stop
-        self.start_stop = tk.Button(self.frame_project_left, text="Start", fg="white", bg="green", font=("Comic Sans MS", 12, "bold"), command=self.start_stop_fnct)
+        self.start_stop = tk.Button(self.frame_project_left, state="disabled", text="Start", fg="white", bg="green", font=("Comic Sans MS", 12, "bold"), command=self.start_stop_fnct)
         self.start_stop.place(x=30, y=410, width=70, height=50)
 
         #Gambar Kiri
@@ -69,7 +85,7 @@ class Project:
         self.pilihanr = tk.StringVar()
         self.pilihanr.set("Pilihan")
 
-        self.opsi2 = tk.OptionMenu(self.frame_project_right, self.pilihanr, *self.pilr)
+        self.opsi2 = tk.OptionMenu(self.frame_project_right, self.pilihanr, *self.pilr, command=lambda value: self.simpan_pemain(value, "naruto"))
         self.opsi2.place(x=180, y=0)
         self.opsi2.config(bg="red", fg="black", width=20, font=("Comic Sans MS", 10, "bold"))
         
@@ -81,7 +97,7 @@ class Project:
         self.Gambarr.image = self.gambarr
         self.Gambarr.place(x=250, y=80)
         
-        self.next_round = tk.Button(self.frame_project_right, text="Next\nRound", bg="darkred", fg="white",  font=("Comic Sans MS", 12, "bold"), command=self.Next_Round)
+        self.next_round = tk.Button(self.frame_project_right, state="disabled", text="Next\nRound", bg="darkred", fg="white",  font=("Comic Sans MS", 12, "bold"), command=self.Next_Round)
         self.next_round.place(x=440, y=400, width=80, height=50)
         
         self.round = tk.Label(self.frame_project_left, text="Round 1", bg="darkblue", fg="white",  font=("Comic Sans MS", 12, "bold"))
@@ -138,24 +154,24 @@ class Project:
         self.show_hide_stopwach.place(x=25, y=10, width=150, height=50)
         
         #Shikkaku Kiri
-        self.shikkakul = tk.Button(self.frame_project_down, text="Shikkaku", fg="white", bg="darkblue", font=("Comic Sans MS", 12, "bold"))
+        self.shikkakul = tk.Button(self.frame_project_down, state="disabled", text="Shikkaku", fg="white", bg="darkblue", font=("Comic Sans MS", 12, "bold"), command=self.Shikkaku_left)
         self.shikkakul.place(x=195, y=15, width=130, height=40)
         
         #Kikken Kiri
-        self.kikkenl = tk.Button(self.frame_project_down, text="Kikken", fg="white", bg="darkblue", font=("Comic Sans MS", 12, "bold"))
+        self.kikkenl = tk.Button(self.frame_project_down, state="disabled", text="Kikken", fg="white", bg="darkblue", font=("Comic Sans MS", 12, "bold"), command=self.Kikken_left)
         self.kikkenl.place(x=335, y=15, width=130, height=40)
         
         #Done
-        self.done = tk.Button(self.frame_project_down, text="Done", fg="black", bg="#009528", font=("Comic Sans MS", 12, "bold"))
+        self.done = tk.Button(self.frame_project_down, state="disabled", text="Done", fg="black", bg="#009528", font=("Comic Sans MS", 12, "bold"), command=self.done_fnct)
         self.done.place(x=475, y=10, width=150, height=50)
         
         #Shikkaku Kanan
-        self.shikkakul = tk.Button(self.frame_project_down, text="Shikkaku", fg="white", bg="darkred", font=("Comic Sans MS", 12, "bold"))
-        self.shikkakul.place(x=635, y=15, width=130, height=40)
+        self.shikkakuR = tk.Button(self.frame_project_down, state="disabled", text="Shikkaku", fg="white", bg="darkred", font=("Comic Sans MS", 12, "bold"), command=self.Shikkaku_right)
+        self.shikkakuR.place(x=635, y=15, width=130, height=40)
         
         #Kikken Kanan
-        self.shikkakul = tk.Button(self.frame_project_down, text="Kikken", fg="white", bg="darkred", font=("Comic Sans MS", 12, "bold"))
-        self.shikkakul.place(x=775, y=15, width=130, height=40)
+        self.kikkenR = tk.Button(self.frame_project_down, state="disabled", text="Kikken", fg="white", bg="darkred", font=("Comic Sans MS", 12, "bold"), command=self.Kikken_right)
+        self.kikkenR.place(x=775, y=15, width=130, height=40)
         
         #Reset Timer
         self.reset = tk.Button(self.frame_project_down, text="Reset", fg="white", bg="black", font=("Comic Sans MS", 12, "bold"), command=self.reset_fnct)
@@ -164,14 +180,11 @@ class Project:
         #=======================================================================================================================================
 
     def addleft(self):
-        angka1 = self.angka1.cget("text")
-        angka1 = int(angka1)
+        angka1 = int(self.angka1.cget("text"))
         
-        angka2 = self.angka2.cget("text")
-        angka2 = int(angka2)
+        angka2 = int(self.angka2.cget("text"))
         
-        jugdes = self.n_jugdes.cget("text")
-        jugdes = int(jugdes)
+        jugdes = int(self.n_jugdes.cget("text"))
         
         angka = angka1 + angka2
         
@@ -181,28 +194,24 @@ class Project:
         if angka1 >= 10:
             self.angka1.place_configure(x=0)
             
+        self.data_pemainL["voting"] = angka1
         self.angka1.config(text=angka1)
 
     def minleft(self):
-        angka = self.angka1.cget("text")
-        angka = int(angka)
+        angka = int(self.angka1.cget("text"))
         if angka > 0:
             angka -= 1
             
         if angka < 10:
             self.angka1.place_configure(x=42)
             
+        self.data_pemainL["voting"] = angka
         self.angka1.config(text=angka)
 
     def addright(self):
-        angka2 = self.angka2.cget("text")
-        angka2 = int(angka2)
-        
-        angka1 = self.angka1.cget("text")
-        angka1 = int(angka1)
-        
-        jugdes = self.n_jugdes.cget("text")
-        jugdes = int(jugdes)
+        angka2 = int(self.angka2.cget("text"))
+        angka1 = int(self.angka1.cget("text"))
+        jugdes = int(self.n_jugdes.cget("text"))
         
         angka = angka1 + angka2
         
@@ -212,17 +221,18 @@ class Project:
         if angka2 >= 10:
             self.angka1.place_configure(x=0)
             
+        self.data_pemainR["voting"] = angka2
         self.angka2.config(text=angka2)
 
     def minright(self):
-        angka = self.angka2.cget("text")
-        angka = int(angka)
+        angka = int(self.angka2.cget("text"))
         if angka > 0:
             angka -= 1
             
         if angka < 10:
             self.angka2.place_configure(x=42)
             
+        self.data_pemainR["voting"] = angka
         self.angka2.config(text=angka)
  
     def timer(self):
@@ -256,12 +266,23 @@ class Project:
             
     def start_stop_fnct(self):
         if self.start_stop.cget("text") == "Start":
+            self.opsi1.place_forget()
+            self.opsi2.place_forget()
+            self.tingkat.place_forget()
+            self.done.config(state="disabled")
+            self.reset.config(state="disabled")
+            self.kikkenl.config(state="normal")
+            self.kikkenR.config(state="normal")
+            self.shikkakul.config(state="normal")
+            self.shikkakuR.config(state="normal")
             self.started = True
             self.start_stop.config(text="Stop")
             self.window.after(250)
             self.timer()
         elif self.start_stop.cget("text") == "Stop":
             if self.id_timer is not None:
+                self.done.config(state="normal")
+                self.reset.config(state="normal")
                 self.started = False
                 self.window.after_cancel(self.id_timer)
                 self.start_stop.config(text="Start")
@@ -277,6 +298,14 @@ class Project:
                 
                 self.pilihanr.set("Pilihan")
                 self.pilihanl.set("Pilihan")
+                self.done.config(state="disabled")
+                self.start_stop.config(state="disabled")
+                self.pemain_aktif = [False, False]
+                self.data_pemainL = {"pemain": None, "voting": None, "status": "Aman" }
+                self.data_pemainR = {"pemain": None, "voting": None, "status": "Aman" }
+                self.opsi1.place(x=180, y=0)
+                self.opsi2.place(x=180, y=0)
+                
         except AttributeError:
             self.started = False
             self.angka1.config(text="0")
@@ -287,33 +316,180 @@ class Project:
         
             self.pilihanr.set("Pilihan")
             self.pilihanl.set("Pilihan")
+            self.done.config(state="disabled")
+            self.start_stop.config(state="disabled")
+            self.pemain_aktif = [False, False]
+            self.data_pemainL = {"pemain": None, "voting": None, "status": "Aman" }
+            self.data_pemainR = {"pemain": None, "voting": None, "status": "Aman" }
+            self.opsi1.place(x=180, y=0)
+            self.opsi2.place(x=180, y=0)
+            
+    def simpan_pemain(self, value, tim):   
+        if tim == "rafly":
+            del self.pemain_aktif[0]
+            self.data_pemainL["pemain"] = value
+            self.pemain_aktif.insert(0, value)
+        else:
+            del self.pemain_aktif[1]
+            self.data_pemainR["pemain"] = value
+            self.pemain_aktif.insert(1, value)   
+        
+        self.cek_pemain_aktif()
+        
+    def cek_pemain_aktif(self):
+        if False not in self.pemain_aktif:
+            self.start_stop.config(state="normal")
             
     def Next_Round(self):
-        round = self.round.cget("text").split(" ")
-        round[1] = int(round[1]) + 1
-        round = round[0] + " " + str(round[1])
+        if len(self.pill) > 0:
+            self.next_round.config(state="disabled")
+            round = int(self.round.cget("text").split(" ")[1])
+            round = f"Ronde {round + 1}"
+            self.round.config(text=round)
         
-        self.round.config(text=round)
+            # TAMPILKAN OPSI
+            self.opsi1.place(x=180, y=0)
+            self.opsi2.place(x=180, y=0)
+            self.tingkat.place(x=475, y=0, width=150, height=50)
+            self.shikkakul.config(state="disabled")
+            self.shikkakuR.config(state="disabled")
+            self.kikkenl.config(state="disabled")
+            self.kikkenR.config(state="disabled")
         
     def done_fnct(self):
-        # CSV
-        pass
+        data = [self.data_pemainL, self.data_pemainR]
+        
+        self.writeData(match=self.round.cget("text"), level=self.division.get(), time=self.Timer1.cget("text"), data=data)
+        self.next_round.config(state="normal")
+        
+        # CEK PILIHAN
+        if len(self.pill) <= 1: self.next_round.config(state="disabled")
+        
+         # HILANGKAN OPSI PEMAIN YANG SUDAH MAIN
+        self.pill.remove(self.pemain_aktif[0])
+        self.pilr.remove(self.pemain_aktif[1])
+        
+        self.opsi1["menu"].delete(0, "end")
+        self.opsi2["menu"].delete(0, "end")
+        
+        for item in self.pill:
+            self.opsi1["menu"].add_command(
+            label=item,
+            command=tk._setit(self.pilihanl, item, lambda value=item: self.simpan_pemain(value, "rafly"))
+        )
+            
+        for item in self.pilr:
+            self.opsi2["menu"].add_command(
+            label=item,
+            command=tk._setit(self.pilihanr, item, lambda value=item: self.simpan_pemain(value, "naruto"))
+        )
+            
+        self.reset_fnct()
+        self.opsi1.place_forget()
+        self.opsi2.place_forget()
     
     def Shikkaku_left(self):
-        # Tim kiri gugur
-        pass
+        self.start_stop.config(state="disabled")
+        self.shikkakul.config(state="disabled")
+        self.shikkakuR.config(state="disabled")
+        self.kikkenl.config(state="disabled")
+        self.kikkenR.config(state="disabled")
+           
+        self.started = False
+        self.window.after_cancel(self.id_timer)
+        
+        self.data_pemainL["status"] = "diskualifikasi"
+        self.data_pemainL["pemain"] = "Blockbuster"
+        data = [self.data_pemainL, self.data_pemainR]
+        self.writeData(match=self.round.cget("text"), level=self.division.get(), time=self.Timer1.cget("text"), data=data)
+        
     
     def Kikken_left(self):
-        # 1 Orang tim kiri gugur
-        pass
+        self.next_round.config(state="normal")
+        self.shikkakul.config(state="disabled")
+        self.shikkakuR.config(state="disabled")
+        self.kikkenl.config(state="disabled")
+        self.kikkenR.config(state="disabled")
+        self.started = False
+        self.window.after_cancel(self.id_timer)
+        self.start_stop.config(text="Start")
         
-    def Shikkaku_left(self):
-        # Tim kiri gugur
-        pass
         
-    def Kikken_left(self):
-        # 1 Orang tim kiri gugur
-        pass
+        self.data_pemainL["status"] = "diskualifikasi"
+        data = [self.data_pemainL, self.data_pemainR]
+        self.writeData(match=self.round.cget("text"), level=self.division.get(), time=self.Timer1.cget("text"), data=data)
+        self.pill.remove(self.pemain_aktif[0])
+        self.pilr.remove(self.pemain_aktif[1])
+        
+        self.opsi1["menu"].delete(0, "end")
+        self.opsi2["menu"].delete(0, "end")
+        
+        for item in self.pill:
+            self.opsi1["menu"].add_command(
+            label=item,
+            command=tk._setit(self.pilihanl, item, lambda value=item: self.simpan_pemain(value, "rafly"))
+        )
+            
+        for item in self.pilr:
+            self.opsi2["menu"].add_command(
+            label=item,
+            command=tk._setit(self.pilihanr, item, lambda value=item: self.simpan_pemain(value, "naruto"))
+        )
+        
+        self.reset_fnct()
+        self.opsi1.place_forget()
+        self.opsi2.place_forget()
+        
+        
+    def Shikkaku_right(self):
+        self.start_stop.config(state="disabled")
+        self.shikkakul.config(state="disabled")
+        self.shikkakuR.config(state="disabled")
+        self.kikkenl.config(state="disabled")
+        self.kikkenR.config(state="disabled")
+        self.started = False
+        self.window.after_cancel(self.id_timer)
+        
+        self.data_pemainR["status"] = "diskualifikasi"
+        self.data_pemainR["pemain"] = "Nullbyte"
+        data = [self.data_pemainL, self.data_pemainR]
+        self.writeData(match=self.round.cget("text"), level=self.division.get(), time=self.Timer1.cget("text"), data=data)
+        
+    def Kikken_right(self):
+        self.next_round.config(state="normal")
+        self.shikkakul.config(state="disabled")
+        self.shikkakuR.config(state="disabled")
+        self.kikkenl.config(state="disabled")
+        self.kikkenR.config(state="disabled")
+        self.started = False
+        self.window.after_cancel(self.id_timer)
+        self.start_stop.config(text="Start")
+        
+        
+        self.data_pemainR["status"] = "diskualifikasi"
+        data = [self.data_pemainL, self.data_pemainR]
+        self.writeData(match=self.round.cget("text"), level=self.division.get(), time=self.Timer1.cget("text"), data=data)
+        self.pill.remove(self.pemain_aktif[0])
+        self.pilr.remove(self.pemain_aktif[1])
+        
+        self.opsi1["menu"].delete(0, "end")
+        self.opsi2["menu"].delete(0, "end")
+        
+        for item in self.pill:
+            self.opsi1["menu"].add_command(
+            label=item,
+            command=tk._setit(self.pilihanl, item, lambda value=item: self.simpan_pemain(value, "rafly"))
+        )
+            
+        for item in self.pilr:
+            self.opsi2["menu"].add_command(
+            label=item,
+            command=tk._setit(self.pilihanr, item, lambda value=item: self.simpan_pemain(value, "naruto"))
+        )
+            
+        self.reset_fnct()
+        self.opsi1.place_forget()
+        self.opsi2.place_forget()
     
     def Show_hide_stowatch(self):
         try:
@@ -339,3 +515,34 @@ class Project:
                 self.back_to_menu()
         except AttributeError:
             self.back_to_menu()
+            
+    def getData(self):
+        data = []
+        with open('data.csv', newline='', encoding='utf-8') as file:
+            read = csv.DictReader(file)
+            for baris in read:
+                data.append(baris)    
+            file.close()
+        return data
+    
+    def writeData(self, match, time, level, data):
+        newData = [
+            {
+                "match": match,
+                "time": time,
+                "level": level,
+                **data[0]
+            },
+            {
+                "match": match,
+                "time": time,
+                "level": level,
+                **data[1]
+            }
+        ]
+        with open('data.csv', mode='a', newline='', encoding='utf-8') as file:
+            write = csv.DictWriter(file, fieldnames=["match","pemain","time","voting","level","status"])
+            if isinstance(data, list):
+                write.writerows(newData)
+            else:
+                write.writerow(data)
