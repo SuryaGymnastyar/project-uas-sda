@@ -25,7 +25,7 @@ class Main(Project, Welcome, Introduction, Menu):
         self.frame_main.pack(fill="both", expand=True)
     
     def Start(self):
-        Project.__init__(self, self.window)
+        Welcome.__init__(self, self.window)
         
     def to_introduction(self):
         self.frame_welcome.place_forget()

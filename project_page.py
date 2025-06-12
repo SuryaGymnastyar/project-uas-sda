@@ -405,6 +405,7 @@ class Project:
         
     
     def Kikken_left(self):
+        self.reset.config(state="disabled")
         self.next_round.config(state="normal")
         self.shikkakul.config(state="disabled")
         self.shikkakuR.config(state="disabled")
@@ -456,6 +457,7 @@ class Project:
         self.writeData(match=self.round.cget("text"), level=self.division.get(), time=self.Timer1.cget("text"), data=data)
         
     def Kikken_right(self):
+        self.reset.config(state="disabled")
         self.next_round.config(state="normal")
         self.shikkakul.config(state="disabled")
         self.shikkakuR.config(state="disabled")

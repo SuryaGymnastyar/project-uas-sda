@@ -148,7 +148,7 @@ class Introduction:
         messagebox.showinfo("BIODATA ANGGOTA 2", "Nama : Annisa Azzahra\nNPM   : 2417051059\nKelas  : ILKOM B\nKata Motivasi : Jangan lupa design")
 
     def info_rafly(self):
-        messagebox.showinfo("BIODATA KETUA PROJECT", "Nama : M. Rafly Saputra\nNPM   : 2417051049\nKelas  : ILKOM B\nKata Motivasi : Jangan lupa petruk")
+        messagebox.showinfo("BIODATA KETUA PROJECT", "Nama : M. Rafly Saputra\nNPM   : 2417051049\nKelas  : ILKOM B\nKata Motivasi : Jangan lupa ngoding")
 
     def info_surya(self):
         messagebox.showinfo("BIODATA ANGGOTA 3", "Nama : M. Surya Gymnastyar\nNPM   : 2417051011\nKelas  : ILKOM B\nKata Motivasi : Jangan lupa so")
