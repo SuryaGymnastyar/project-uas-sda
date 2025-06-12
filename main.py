@@ -46,6 +46,15 @@ class Main(Project, Welcome, Introduction, Menu):
     def to_project(self):
         self.frame_menu.place_forget()
         Project.__init__(self, self.window)
+        
+    def back_to_menu(self):
+        self.frame_project_left.place_forget()
+        self.frame_project_right.place_forget()
+        self.frame_project_up.place_forget()
+        self.frame_project_down.place_forget()
+        self.jugdes.place_forget()
+        self.n_jugdes.place_forget()
+        Menu.__init__(self, self.window)
             
     def mainloop(self):
         self.window.mainloop()
