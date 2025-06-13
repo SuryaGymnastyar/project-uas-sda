@@ -6,19 +6,18 @@ class Project:
     def __init__(self, window):
         self.data_pemainL = {
             "pemain": None,
-            "voting": 0,
+            "score": 0,
             "status": "Aman"
         }
         
         self.data_pemainR = {
             "pemain": None,
-            "voting": 0,
+            "score": 0,
             "status": "Aman"
         }
         
         self.pemain_aktif = [False, False]
         self.pemain_selesai = []
-        
         #Frame Kiri
         self.frame_project_left = tk.Frame(window, bg="blue", width=550, height=650)
         self.frame_project_left.place(x=0, y=50)
@@ -98,7 +97,7 @@ class Project:
         self.Gambarr.place(x=250, y=80)
         
         self.next_round = tk.Button(self.frame_project_right, state="disabled", text="Next\nRound", bg="darkred", fg="white",  font=("Comic Sans MS", 12, "bold"), command=self.Next_Round)
-        self.next_round.place(x=440, y=400, width=80, height=50)
+        self.next_round.place(x=469, y=470, width=80, height=50)
         
         self.round = tk.Label(self.frame_project_left, text="Round 1", bg="darkblue", fg="white",  font=("Comic Sans MS", 12, "bold"))
         self.round.place(x=25, y=5, width=80, height=40)
@@ -194,7 +193,7 @@ class Project:
         if angka1 >= 10:
             self.angka1.place_configure(x=0)
             
-        self.data_pemainL["voting"] = angka1
+        self.data_pemainL["score"] = angka1
         self.angka1.config(text=angka1)
 
     def minleft(self):
@@ -205,7 +204,7 @@ class Project:
         if angka < 10:
             self.angka1.place_configure(x=42)
             
-        self.data_pemainL["voting"] = angka
+        self.data_pemainL["score"] = angka
         self.angka1.config(text=angka)
 
     def addright(self):
@@ -221,7 +220,7 @@ class Project:
         if angka2 >= 10:
             self.angka1.place_configure(x=0)
             
-        self.data_pemainR["voting"] = angka2
+        self.data_pemainR["score"] = angka2
         self.angka2.config(text=angka2)
 
     def minright(self):
@@ -232,7 +231,7 @@ class Project:
         if angka < 10:
             self.angka2.place_configure(x=42)
             
-        self.data_pemainR["voting"] = angka
+        self.data_pemainR["score"] = angka
         self.angka2.config(text=angka)
  
     def timer(self):
@@ -301,8 +300,8 @@ class Project:
                 self.done.config(state="disabled")
                 self.start_stop.config(state="disabled")
                 self.pemain_aktif = [False, False]
-                self.data_pemainL = {"pemain": None, "voting": None, "status": "Aman" }
-                self.data_pemainR = {"pemain": None, "voting": None, "status": "Aman" }
+                self.data_pemainL = {"pemain": None, "score": 0, "status": "Aman" }
+                self.data_pemainR = {"pemain": None, "score": 0, "status": "Aman" }
                 self.opsi1.place(x=180, y=0)
                 self.opsi2.place(x=180, y=0)
                 
@@ -319,8 +318,8 @@ class Project:
             self.done.config(state="disabled")
             self.start_stop.config(state="disabled")
             self.pemain_aktif = [False, False]
-            self.data_pemainL = {"pemain": None, "voting": None, "status": "Aman" }
-            self.data_pemainR = {"pemain": None, "voting": None, "status": "Aman" }
+            self.data_pemainL = {"pemain": None, "score": 0, "status": "Aman" }
+            self.data_pemainR = {"pemain": None, "score": 0, "status": "Aman" }
             self.opsi1.place(x=180, y=0)
             self.opsi2.place(x=180, y=0)
             
@@ -363,7 +362,9 @@ class Project:
         self.next_round.config(state="normal")
         
         # CEK PILIHAN
-        if len(self.pill) <= 1: self.next_round.config(state="disabled")
+        if len(self.pill) <= 1:
+            self.next_round.config(state="disabled")
+            self.dialogWin()
         
          # HILANGKAN OPSI PEMAIN YANG SUDAH MAIN
         self.pill.remove(self.pemain_aktif[0])
@@ -400,9 +401,11 @@ class Project:
         
         self.data_pemainL["status"] = "diskualifikasi"
         self.data_pemainL["pemain"] = "Blockbuster"
+        self.data_pemainR["score"] = 25
+        self.data_pemainL["score"] = 0
         data = [self.data_pemainL, self.data_pemainR]
         self.writeData(match=self.round.cget("text"), level=self.division.get(), time=self.Timer1.cget("text"), data=data)
-        
+        self.dialogWin()
     
     def Kikken_left(self):
         self.reset.config(state="disabled")
@@ -417,6 +420,8 @@ class Project:
         
         
         self.data_pemainL["status"] = "diskualifikasi"
+        self.data_pemainL["score"] = 0
+        self.data_pemainR["score"] = 5
         data = [self.data_pemainL, self.data_pemainR]
         self.writeData(match=self.round.cget("text"), level=self.division.get(), time=self.Timer1.cget("text"), data=data)
         self.pill.remove(self.pemain_aktif[0])
@@ -453,8 +458,11 @@ class Project:
         
         self.data_pemainR["status"] = "diskualifikasi"
         self.data_pemainR["pemain"] = "Nullbyte"
+        self.data_pemainL["score"] = 25
+        self.data_pemainR["score"] = 0
         data = [self.data_pemainL, self.data_pemainR]
         self.writeData(match=self.round.cget("text"), level=self.division.get(), time=self.Timer1.cget("text"), data=data)
+        self.dialogWin()
         
     def Kikken_right(self):
         self.reset.config(state="disabled")
@@ -469,6 +477,8 @@ class Project:
         
         
         self.data_pemainR["status"] = "diskualifikasi"
+        self.data_pemainL["score"] = 5
+        self.data_pemainR["score"] = 0
         data = [self.data_pemainL, self.data_pemainR]
         self.writeData(match=self.round.cget("text"), level=self.division.get(), time=self.Timer1.cget("text"), data=data)
         self.pill.remove(self.pemain_aktif[0])
@@ -518,14 +528,18 @@ class Project:
         except AttributeError:
             self.back_to_menu()
             
-    def getData(self):
-        data = []
+    def getData(self):        
+        pemainL = []
+        pemainR = []
         with open('data.csv', newline='', encoding='utf-8') as file:
             read = csv.DictReader(file)
-            for baris in read:
-                data.append(baris)    
+            for i, baris in enumerate(read):
+                if i % 2 == 0:
+                    pemainL.append(baris)
+                else:
+                    pemainR.append(baris) 
             file.close()
-        return data
+        return [pemainL, pemainR]
     
     def writeData(self, match, time, level, data):
         newData = [
@@ -543,8 +557,22 @@ class Project:
             }
         ]
         with open('data.csv', mode='a', newline='', encoding='utf-8') as file:
-            write = csv.DictWriter(file, fieldnames=["match","pemain","time","voting","level","status"])
+            write = csv.DictWriter(file, fieldnames=["match","pemain","time","score","level","status"])
             if isinstance(data, list):
                 write.writerows(newData)
             else:
                 write.writerow(data)
+                
+    def dialogWin(self):
+        [blockbuster, nullbyte] = self.getData()
+        pemainL = { "totalScore": 0, "tim": "Blockbuster",  "daftarPemain": {"Abdul": 0, "Rara": 0, "Rafly": 0, "Surya": 0}}
+        pemainR = { "totalScore": 0, "tim": "Nullbyte", "daftarPemain": {"Naruto": 0, "Sasuke": 0, "Sakura": 0, "Kakashi": 0}}
+        for data in blockbuster:
+            pemainL["totalScore"] += int(data["score"])
+            pemainL["daftarPemain"][data["pemain"]] = data["score"]
+            
+        for data in nullbyte:
+            pemainR["totalScore"] += int(data["score"])
+            pemainR["daftarPemain"][data["pemain"]] = data["score"]   
+            
+        messagebox.showinfo("INFORMATION", f"Nama Tim: {pemainL['tim']}\nDaftar Tim:\nRafly: {pemainL["daftarPemain"]["Rafly"]}\nAbdul: {pemainL["daftarPemain"]["Abdul"]}\nRara: {pemainL["daftarPemain"]["Rara"]}\nSurya: {pemainL["daftarPemain"]["Surya"]}\nTotal Score: {pemainL["totalScore"]}\n\nNama Tim: {pemainR['tim']}\nDaftar Tim:\nNaruto: {pemainR["daftarPemain"]["Naruto"]}\nSasuke: {pemainR["daftarPemain"]["Sasuke"]}\nSakura: {pemainR["daftarPemain"]["Sakura"]}\nKakashi: {pemainR["daftarPemain"]["Kakashi"]}\nTotal Score: {pemainR["totalScore"]}")
