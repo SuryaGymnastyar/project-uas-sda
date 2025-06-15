@@ -1,21 +1,5 @@
 match,pemain,time,score,level,status
-Round 1,Rara,0:06,3,Advance,Aman
-Round 1,Sakura,0:06,2,Advance,Aman
-Ronde 2,Rafly,0:08,0,Champion,Aman
-Ronde 2,Kakashi,0:08,0,Champion,Aman
-Ronde 3,Surya,0:08,2,Beginer,Aman
-Ronde 3,Naruto,0:08,3,Beginer,Aman
-Ronde 4,Abdul,0:06,2,Beginer,Aman
-Ronde 4,Sasuke,0:06,2,Beginer,Aman
-Round 1,Rara,0:05,2,Intermediate,Aman
-Round 1,Sasuke,0:05,3,Intermediate,Aman
-Ronde 2,Rafly,0:06,0,Advance,diskualifikasi
-Ronde 2,Kakashi,0:06,5,Advance,Aman
-Ronde 3,Abdul,0:10,0,Champion,Aman
-Ronde 3,Sakura,0:10,5,Champion,Aman
-Ronde 4,Surya,0:05,0,Champion,Aman
-Ronde 4,Naruto,0:05,0,Champion,Aman
-Round 1,Rara,0:04,0,Intermediate,diskualifikasi
-Round 1,Sasuke,0:04,5,Intermediate,Aman
-Ronde 2,Blockbuster,0:29,0,Advance,diskualifikasi
-Ronde 2,Naruto,0:29,25,Advance,Aman
+Round 1,Rafly,0:10,25,Intermediate,Aman
+Round 1,Nullbyte,0:10,0,Intermediate,diskualifikasi
+Round 1,Blockbuster,0:05,0,Intermediate,diskualifikasi
+Round 1,Sasuke,0:05,25,Intermediate,Aman

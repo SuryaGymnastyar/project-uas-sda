@@ -354,6 +354,9 @@ class Project:
             self.shikkakuR.config(state="disabled")
             self.kikkenl.config(state="disabled")
             self.kikkenR.config(state="disabled")
+        else:
+            self.dialogWin()
+            
         
     def done_fnct(self):
         data = [self.data_pemainL, self.data_pemainR]
